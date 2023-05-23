@@ -17,3 +17,18 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get("/bikes", function () {
+    $pdo = new PDO('mysql:host=localhost;dbname=hello-bicycle', 'root');
+    $statement = $pdo->prepare('SELECT * FROM bikes');
+    $statement->execute();
+    return $statement->fetchAll(PDO::FETCH_ASSOC);
+});
+
+Route::get("/bike/{id}", function ($id) {
+    $pdo = new PDO('mysql:host=localhost;dbname=hello-bicycle', 'root');
+    $statement = $pdo->prepare('SELECT * FROM bikes WHERE id = :id');
+    $statement->bindParam(':id', $id);
+    $statement->execute();
+    return $statement->fetchAll(PDO::FETCH_ASSOC);
+});
