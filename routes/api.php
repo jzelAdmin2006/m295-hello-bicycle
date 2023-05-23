@@ -22,6 +22,6 @@ Route::get("/bikes", function () {
     return DB::select('SELECT * FROM bikes');
 });
 
-Route::get("/bike/{id}", function ($id) {
+Route::get("/bikes/{id}", function ($id) {
     return DB::select('SELECT * FROM bikes WHERE id = ?', [$id]);
 });
