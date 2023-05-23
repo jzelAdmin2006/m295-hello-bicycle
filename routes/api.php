@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Bike;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -19,9 +20,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get("/bikes", function () {
-    return DB::select('SELECT * FROM bikes');
+    return Bike::get();
 });
 
 Route::get("/bikes/{id}", function ($id) {
-    return DB::select('SELECT * FROM bikes WHERE id = ?', [$id]);
+    return Bike::find($id);
 });
