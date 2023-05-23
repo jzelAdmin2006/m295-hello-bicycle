@@ -19,16 +19,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get("/bikes", function () {
-    $pdo = new PDO('mysql:host=localhost;dbname=hello-bicycle', 'root');
-    $statement = $pdo->prepare('SELECT * FROM bikes');
-    $statement->execute();
-    return $statement->fetchAll(PDO::FETCH_ASSOC);
+    return DB::select('SELECT * FROM bikes');
 });
 
 Route::get("/bike/{id}", function ($id) {
-    $pdo = new PDO('mysql:host=localhost;dbname=hello-bicycle', 'root');
-    $statement = $pdo->prepare('SELECT * FROM bikes WHERE id = :id');
-    $statement->bindParam(':id', $id);
-    $statement->execute();
-    return $statement->fetchAll(PDO::FETCH_ASSOC);
+    return DB::select('SELECT * FROM bikes WHERE id = ?', [$id]);
 });
